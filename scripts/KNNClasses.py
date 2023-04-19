@@ -16,12 +16,15 @@ class KNNClasses:
         arg1 : label(str) - le label de la nouvelle classe
         arg2 : vectors(list) - une liste de vecteurs de cette nouvelle classe
         """
-        # on lit le data, s'il n'y a pas de cette classe dans data, on l'ajoute
-        for item in self._data:
-            if item['label'] == label:
-                return "La classe "+label+" existe déjà!"
-        newData={"label":label,"vectors":vectors}
-        self._data.append(newData)
+        if len(self._data)>0:
+            # on lit le data, s'il n'y a pas de cette classe dans data, on l'ajoute
+            for item in self._data:
+                if item['label'] == label:
+                    return "La classe "+label+" existe déjà!"
+            newData={"label":label,"vectors":vectors}
+            self._data.append(newData)
+        else:
+            return "Le data est vide!"
 
     def add_vector(self,label:str,vector:dict):
         """
@@ -30,10 +33,13 @@ class KNNClasses:
         arg1 : label(str) - le label de la classe
         arg2 : vectors(dict) - le vecteur (dict) à ajouter
         """
-        # on lit le data, s'il existe déjà cette classe, on ajoute ce vecteur
-        for item in self._data:
-            if item["label"]==label:
-                item["vectors"].append(vector)
+        if len(self._data) > 0:
+            # on lit le data, s'il existe déjà cette classe, on ajoute ce vecteur
+            for item in self._data:
+                if item["label"]==label:
+                    item["vectors"].append(vector)
+        else:
+            return "Le data est vide!"
 
     def del_class(self,label:str):
         """
@@ -41,10 +47,13 @@ class KNNClasses:
         Input :
         arg1 : label(str) - le label de la classe que l'on veut supprimer
         """
-        # on lit le data, on supprime la classe qui correspond à label
-        for item in self._data:
-            if item['label']==label:
-                self._data.remove(item)
+        if len(self._data) > 0:
+            # on lit le data, on supprime la classe qui correspond à label
+            for item in self._data:
+                if item['label']==label:
+                    self._data.remove(item)
+        else:
+            return "Le data est vide!"
 
     def save_as_json(self,filename:str):
         """

@@ -17,12 +17,15 @@ class TextVect():
         Output :
         valeur de retour : set(str) - ensemble des stopwords
         """
-        # on ouvre, lit et après ferme le fichier
-        dict_file = open(stoplist_filename, "r", encoding="utf-8")
-        dict_content = dict_file.read()
-        dict_file.close()
-        # on sépare le dict_content(string) avec la saut de ligne et renvoie une liste
-        stoplist = set(dict_content.split("\n"))
+        try:
+            # on ouvre, lit et après ferme le fichier
+            dict_file = open(stoplist_filename, "r", encoding="utf-8")
+            dict_content = dict_file.read()
+            dict_file.close()
+            # on sépare le dict_content(string) avec la saut de ligne et renvoie une liste
+            stoplist = set(dict_content.split("\n"))
+        except Exception as err:
+            return "Impossible d'ouvrir le fichier de stopwords"
         return stoplist
 
     def tokenize(self,text):
@@ -65,7 +68,10 @@ class TextVect():
         path=data_path+'/'+dir_or_filename
         # si c'est un fichier, on le lit, tokenise et vectorize le contenu
         if os.path.isfile(path):
-            input_file=open(data_path+'/'+dir_or_filename,mode="r",encoding="utf8")
+            try:
+                input_file=open(data_path+'/'+dir_or_filename,mode="r",encoding="utf8")
+            except Exception as err:
+                return "Impossible d'ouvrir le fichier"+dir_or_filename
             tokens=[]
             for line in input_file:
                 line=line.strip() #on supprime les retours à la ligne
@@ -79,7 +85,10 @@ class TextVect():
             filenames = [file.name for file in os.scandir(data_path+'/' + dir_or_filename) if file.is_file()]
             liste_vectors = []
             for file_name in filenames:
-                input_file = open(data_path+'/'+dir_or_filename+'/'+file_name, mode="r", encoding="utf8")
+                try:
+                    input_file = open(data_path+'/'+dir_or_filename+'/'+file_name, mode="r", encoding="utf8")
+                except Exception as err:
+                    return "Impossible d'ouvrir le fichier" + file_name
                 tokens = []
                 for line in input_file:
                     line = line.strip()
