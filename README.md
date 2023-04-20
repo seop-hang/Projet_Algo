@@ -134,7 +134,8 @@ Pour exécuter ce fichier, il faut l'installation préalable des modules "TextVe
 
 # La base de données
 Pour construire la base de données, il faut stocker les fichiers de différentes classes dans un même dossier, par exemple, si on a 5 recettes de l'entrée, 5 recettes du plat et 5 recettes du dessert, on les stocke respectivement dans le dossier qui s'appelle "entrée","plat" et "dessert". Et ces dossiers sont stocker dans un même dossier, par défaut, on le donne le nom "corpus".
-Quand on a un fichier dont on ne connaît pas la classe, on stocke ce fichier dans le dossier "corpus".
+Quand on a un fichier dont on ne connaît pas la classe, on stocke ce fichier dans le dossier "corpus". Le chemin de ce dossier est l'argument quand on utilise la méthode "generate_data" de la classe TextVect pour générer les vecteurs.
+
 
 # Utilisation
 Dans le fichier "Main.py", on écrit les scripts sous la fonction "__main__".
@@ -164,7 +165,7 @@ Pour enregistrer les données d'une classe au format json:
 Pour charger les données depuis une classe au format json:
 ```KNNClass.load_as_json(filename)```
 
-# Améliorations Possibles
+# Bogues et Améliorations Possibles
 - Lorsque l'on génère les vecteurs de base de données, et losque l'on ajoute une nouvelle classe, on n'a pas vérifié si il existe des vecteurs qui sont identiques, autrement dit, s'il y a des vecteurs qui sont les même, la distance entre les vecteurs seront identique, qui entraînera des problèmes. Donc, il est nécessaire d'ajouter des vérifications.
 - Quant à la structure de data, on n'a stocké qu'une liste de vecteurs, mais il n'y a pas de données supplémentaires liées à chaque vecteur, à titre d'exemple, le nom de chaque document, etc. Et il est possible d'ajouter ces informations quand on génère des vecteurs.
 - Quand on compare la similarité entre deux vecteurs, le calcule de distance est toujours influencé par le longeur de document. Plus précisément, même si les deux documents sont de même classe, la distance pourrait être plus grande si l'un de ces documents est excessivement long. Par conséquent, il faut des améliorations pour traiter les documents avec une longueur très différente.
